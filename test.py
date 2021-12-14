@@ -21,21 +21,25 @@ def login_report(driver):
     username_prompt = 'admin'
     password_prompt = 'password'
 
-
     driver.get("http://localhost:4295")
     delay = 3 # seconds
     username_login_form = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, username_id)))
     username_login_form.send_keys(username_prompt)
     password_login_form = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, password_id)))
     password_login_form.send_keys(password_prompt)
-    signin_button = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, password_id)))
+    signin_button = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, signin_id)))
     signin_button.send_keys(Keys.ENTER)
 
-    time.sleep(10)
+def open_worklist(driver, esid):
+    delay = 3 # seconds
+    worklist_selection = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, 'worklist_'+esid)))
+    worklist_selection.click()
 
 def main():
     driver = getDriver()
     login_report(driver)
+    open_worklist(driver, '14')
+    time.sleep(10)
 
 if __name__ == "__main__":
     main()
